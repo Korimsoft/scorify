@@ -55,6 +55,13 @@ class Game extends Component {
         });
     }
 
+    onEndButtonPressed() {
+        // Show confirmation toast or somethind
+        // OK => End the game
+        // Cancel => Continue
+        // Can I end in the middle of the round?
+    }
+
     render() {
         const renderItem = ({ item }) => (
             <PreviousRound roundInfo={item}></PreviousRound>
@@ -73,7 +80,11 @@ class Game extends Component {
                     keyExtractor = {item => item.round}
                 >
                 </FlatList>
-                <Button>End</Button>
+                <Button 
+                    title='End'
+                    onPress={this.onEndButtonPressed}
+                />
+                
             </Fragment>
         );
     }

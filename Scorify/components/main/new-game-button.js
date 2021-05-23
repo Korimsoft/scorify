@@ -1,16 +1,21 @@
-import React from "react";
-import { Alert, Button } from "react-native";
+import React from 'react';
+import { Alert } from 'react-native';
+import { FAB } from 'react-native-elements';
 
 /*
  Create a new game
 */
-const NewGameButton = () => {
+const NewGameButton = (props) => {
 
-
-    const buttonPress = () => Alert.alert('Huh', 'Huhuhu');
+    const buttonPress = () => {
+        props.navigation.navigate('new-game');
+    }
 
     return (
-        <Button title="New Game" onPress={buttonPress} />
+        <FAB 
+            title="New Game" 
+            onPress={buttonPress} 
+        />
     );
     
 }
