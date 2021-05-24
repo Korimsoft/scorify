@@ -10,14 +10,43 @@ A new game:
 import React, { Component } from 'react'
 import { Fragment } from 'react';
 import { Button, Input } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
+import PlayerPicker from '../player/player-picker';
+
+const players = [
+    {
+        name: 'Karel',
+        color: 'red',
+        score: 0
+    },
+    {
+        name: 'Marcela',
+        color: 'green',
+        score: 0
+    },
+    {
+        name: 'Fofrnec',
+        color: 'blue',
+        score: 0
+    }
+
+];
+
 
 class NewGame extends Component {
     constructor(props) {
         super(props);
+        this.state = {label: ''};
     }
 
     startGame() {
-        this.props.navigation.navigate('game');
+
+        const gameParams = {
+            label: this.state.label,
+            players: players
+        };
+
+        this.props.navigation.navigate('game', gameParams);
     }
 
     render() {
@@ -25,8 +54,14 @@ class NewGame extends Component {
             <Fragment>
 
                 <Input
-                    placeholder="Game name"
+                    placeholder="Game Label"
+                    leftIcon={
+                        <Icon name='label'/>
+                    }
+                    onChangeText={(text)=>this.setState({label: text})}
                 />
+
+                <PlayerPicker players={players}></PlayerPicker>
 
                 <Button
                     title="Start"

@@ -4,7 +4,7 @@ import {
     Input,
     Text
 } from 'react-native-elements';
-import { Icon } from 'react-native-elements/dist/icons/Icon';
+import { Icon } from 'react-native-elements';
 
 /*
 Input score and confirm.
@@ -53,12 +53,15 @@ class ScoreInput extends Component {
     render() {
         return (
             <Fragment>
-                <Text>{this.state.name}</Text>
+                <Text h4>{this.state.name}</Text>
                 <Input
                     ref={this.scoreInput}
                     placeholder='0'
                     keyboardType='decimal-pad'
                     onChangeText={this.scoreChanged}
+                    leftIcon={
+                        <Icon name='edit'/>
+                    }
                 >
                 </Input>
                 <Text>Current score: {this.state.score}</Text>

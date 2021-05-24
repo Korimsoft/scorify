@@ -1,29 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { Alert, FlatList } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Text, Icon } from 'react-native-elements';
 import CurrentRound from './current-round'
 import PreviousRound from './previous-round';
 
 
 const round = 1;
-const players = [
-    {
-        name: 'Karel',
-        color: 'red',
-        score: 0
-    },
-    {
-        name: 'Marcela',
-        color: 'green',
-        score: 0
-    },
-    {
-        name: 'Fofrnec',
-        color: 'blue',
-        score: 0
-    }
 
-];
 
 /*
 Game view
@@ -32,9 +15,11 @@ class Game extends Component {
 
     constructor(props) {
         super(props)
+
+        this.label = props.route.params.label;
         this.state = { 
             round: round, 
-            players: players,
+            players: props.route.params.players,
             finishedRounds: []
         };
     }
@@ -69,6 +54,9 @@ class Game extends Component {
 
         return (
             <Fragment>
+                <Text h1>
+                    Game {this.label}
+                </Text>
                 <CurrentRound 
                     round={this.state.round} 
                     players={this.state.players} 
@@ -83,6 +71,9 @@ class Game extends Component {
                 <Button 
                     title='End'
                     onPress={this.onEndButtonPressed}
+                    icon= {
+                        <Icon name='close' />
+                    }
                 />
                 
             </Fragment>
