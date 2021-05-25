@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Fragment } from 'react';
-import {Text, FAB, Icon, ListItem} from 'react-native-elements';
+import { Alert } from 'react-native';
+import { FAB, Icon } from 'react-native-elements';
+import NewGamePlayerList from './new-game-player-list';
 
 class PlayerPicker extends Component {
     constructor(props) {
@@ -15,46 +17,50 @@ class PlayerPicker extends Component {
         // Open modal player creation dialog
     }
 
-    selectPlayer() {
-
+    selectPlayer(player) {
         
+        const selected = this.state.selected;
+        const available = this.state.available.filter(p => p.id !== player.id);
+
+        selected.push(player);
+       
+        this.setState({
+            available: available.slice(),
+            selected: selected.slice()
+        });
+
+        this.props.onSelected(this.state.selected);
+    }
+
+    removePlayer(player) {
+        const selected = this.state.selected.filter(p => p.id !== player.id);
+        const available = this.state.available;
+        available.push(player);
+
+        this.setState({
+            available: available.slice(),
+            selected: selected.slice()
+        });
+
+        this.props.onSelected(this.state.selected);
     }
 
     render() { 
         return (
             <Fragment>
-                <Text>List of selected players</Text>
-                {/* {
-                    this.state.selected.map((key, player) => (
-                        <ListItem key={key}>
-                            <ListItem.Content>
-                                <ListItem.Title>
-                                    {player.name}
-                                </ListItem.Title>   
-                            </ListItem.Content>
-                        </ListItem>
-                    ))
-                } */}
+                <NewGamePlayerList 
+                    title='Players In Game'
+                    type='assigned'
+                    players={ this.state.selected } 
+                    onPlayerSelected={ this.removePlayer.bind(this) } 
+                />
 
-
-                <Text>List of available players</Text>
-                {
-                    this.state.available.map((key, player) => (
-                        <ListItem 
-                            key={key} 
-                            onPress={ (this.selectPlayer.bind(this))(player) }>
-                            <ListItem.Content>
-                                <ListItem.Title>
-                                    {player.name}
-                                </ListItem.Title>   
-                            </ListItem.Content>
-                        </ListItem>
-                    ))
-                }
-                <FAB onPress={this.onAddPlayerPress.bind(this)}
-                    title = {
-                        <Icon name='add'></Icon>
-                    } />
+                <NewGamePlayerList 
+                    title='Available Players'
+                    type='available'
+                    players={ this.state.available }
+                    onPlayerSelected={ this.selectPlayer.bind(this) }
+                />
             </Fragment>
         );
     }

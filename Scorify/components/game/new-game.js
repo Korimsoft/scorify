@@ -7,67 +7,91 @@ A new game:
  - Set rounds count (optional)
  */
 
-import React, { Component } from 'react'
-import { Fragment } from 'react';
+import React, { Component } from 'react';
+import { ScrollView } from 'react-native-gesture-handler';
 import { Button, Input } from 'react-native-elements';
 import { Icon } from 'react-native-elements';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import PlayerPicker from '../player/player-picker';
+import { Alert } from 'react-native';
 
 const players = [
-    {
-        name: 'Karel',
-        color: 'red',
-        score: 0
-    },
-    {
-        name: 'Marcela',
-        color: 'green',
-        score: 0
-    },
-    {
-        name: 'Fofrnec',
-        color: 'blue',
-        score: 0
-    }
-
+    { id: '0', name: 'Karel', color: '', score: 0 },
+    { id: '1', name: 'Marcela', color: '', score: 0 },
+    { id: '2', name: 'Fofrnec', color: '', score: 0 },
+    { id: '3', name: 'Pivrnec', color: '', score: 0 },
+    { id: '4', name: 'Hundrt', color: '', score: 0 }
 ];
 
+const MIN_PLAYERS = 2;
 
 class NewGame extends Component {
     constructor(props) {
         super(props);
-        this.state = {label: ''};
+        this.state = {
+            label: `Game ${new Date().toDateString()}`,
+            players: []
+        };
     }
 
     startGame() {
 
         const gameParams = {
             label: this.state.label,
-            players: players
+            players: this.state.players
         };
 
         this.props.navigation.navigate('game', gameParams);
     }
 
+    playersSelected(players) {
+        this.setState({ players: players });
+    }
+
+
+    renderStartButton() {
+        // Conditional disabled start button
+        // Disable when players missing
+        // At least 2 players in the game? Or 1?
+        const playerCount = this.state.players.length;
+        
+        if (playerCount < MIN_PLAYERS) {
+            return (
+                <Button
+                    title={`Add ${MIN_PLAYERS - playerCount} more`}
+                    disabled
+                />
+            )
+        } else {
+            return (
+                <Button
+                    title='Start'
+                    onPress={this.startGame.bind(this)}
+                />);
+        }
+    }
+
     render() {
         return (
-            <Fragment>
+            <SafeAreaView style={{flex: 1}}>
+                <ScrollView style={{flex: 1}}>
+                    <Input
+                        placeholder="Game Name (Optional)"
+                        leftIcon={
+                            <Icon name='label' />
+                        }
+                        onChangeText={(text) => this.setState({ label: text })}
+                    />
 
-                <Input
-                    placeholder="Game Label"
-                    leftIcon={
-                        <Icon name='label'/>
-                    }
-                    onChangeText={(text)=>this.setState({label: text})}
-                />
+                    <PlayerPicker
+                        players={players}
+                        onSelected={this.playersSelected.bind(this)}
+                    />
 
-                <PlayerPicker players={players}></PlayerPicker>
+                    {this.renderStartButton()}
 
-                <Button
-                    title="Start"
-                    onPress={this.startGame.bind(this)}
-                />
-            </Fragment>
+                </ScrollView>
+            </SafeAreaView>
         );
     }
 }

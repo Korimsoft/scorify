@@ -1,5 +1,4 @@
 import React from 'react';
-import { Alert } from 'react-native';
 import { FAB } from 'react-native-elements';
 
 /*

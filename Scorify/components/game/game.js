@@ -54,8 +54,8 @@ class Game extends Component {
 
         return (
             <Fragment>
-                <Text h1>
-                    Game {this.label}
+                <Text h3>
+                    {this.label}
                 </Text>
                 <CurrentRound 
                     round={this.state.round} 
@@ -75,7 +75,6 @@ class Game extends Component {
                         <Icon name='close' />
                     }
                 />
-                
             </Fragment>
         );
     }
