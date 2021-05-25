@@ -29,7 +29,8 @@ class NewGame extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            label: `Game ${new Date().toDateString()}`,
+            label: 'Game',
+            date: new Date(),
             players: []
         };
     }
