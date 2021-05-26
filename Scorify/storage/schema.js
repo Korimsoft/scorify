@@ -21,7 +21,7 @@ export const schema = appSchema({
             name: 'rounds',
             columns: [
                 {name: 'game_id', type: 'string', isIndexed: true},
-                {name: 'round', type: 'number'}
+                {name: 'round_number', type: 'number'}
             ]
         }),
         tableSchema({
