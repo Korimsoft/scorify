@@ -10,7 +10,7 @@ export class Game extends Model {
     }
 
     @field('name') name;
-    @date('timestamp') date;
+    @date('timestamp') timestamp;
 }
 
 export class Round extends Model {

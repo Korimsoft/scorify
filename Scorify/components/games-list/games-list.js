@@ -1,8 +1,19 @@
 import React, { Component, Fragment } from 'react'
-import {Text} from 'react-native-elements'
-import NewGameButton from '../main/new-game-button';
+import NewGameButton from './new-game-button';
+
+
+
+const games = [
+    {
+
+    }, 
+    {
+
+    }
+]
 
 class GamesList extends Component {
+
     constructor(props) {
         super(props);
     }

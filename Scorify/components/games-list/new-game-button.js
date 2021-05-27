@@ -1,5 +1,6 @@
 import React from 'react';
 import { FAB } from 'react-native-elements';
+import { Icon } from 'react-native-elements/dist/icons/Icon';
 
 /*
  Create a new game
@@ -7,13 +8,14 @@ import { FAB } from 'react-native-elements';
 const NewGameButton = (props) => {
 
     const buttonPress = () => {
-        props.navigation.navigate('new-game');
+        props.navigation.navigate('New Game');
     }
 
     return (
-        <FAB 
-            title="New Game" 
+        <FAB
+            size='large'
             onPress={buttonPress} 
+            icon= { <Icon name='add'></Icon>}
         />
     );
     

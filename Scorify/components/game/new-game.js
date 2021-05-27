@@ -31,7 +31,7 @@ class NewGame extends Component {
         super(props);
         this.state = {
             label: 'Game',
-            date: new Date(),
+            timestamp: new Date().toString(),
             players: []
         };
     }
@@ -41,10 +41,10 @@ class NewGame extends Component {
         const gameParams = {
             label: this.state.label,
             players: this.state.players,
-            date: this.state.date
+            timestamp: this.state.timestamp
         };
 
-        this.props.navigation.dispatch(StackActions.replace('game', gameParams));
+        this.props.navigation.dispatch(StackActions.replace('Game', gameParams));
     }
 
     playersSelected(players) {
@@ -53,9 +53,6 @@ class NewGame extends Component {
 
 
     renderStartButton() {
-        // Conditional disabled start button
-        // Disable when players missing
-        // At least 2 players in the game? Or 1?
         const playerCount = this.state.players.length;
         
         if (playerCount < MIN_PLAYERS) {

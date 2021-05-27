@@ -17,7 +17,7 @@ class Game extends Component {
         super(props)
 
         this.label = props.route.params.label;
-        this.date = props.route.params.date;
+        this.date = new Date(props.route.params.timestamp);
         this.state = { 
             round: round, 
             players: props.route.params.players,
@@ -55,8 +55,11 @@ class Game extends Component {
 
         return (
             <Fragment>
-                <Text h3>
-                    {this.label} - {this.date.toDateString()}
+                <Text h4>
+                    {this.label} 
+                </Text>
+                <Text>
+                  Created on: {this.date.toDateString() }
                 </Text>
                 <CurrentRound 
                     round={this.state.round} 
