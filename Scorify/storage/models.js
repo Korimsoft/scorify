@@ -25,8 +25,10 @@ export class Round extends Model {
             foreign_key: 'game_id'
         }
         
-        @field('round_number') number;
+        
     }
+    
+    @field('round_number') number;
 }
 
 export class ScoreRecord {

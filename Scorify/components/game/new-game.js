@@ -12,8 +12,9 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Button, Input } from 'react-native-elements';
 import { Icon } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import PlayerPicker from '../player/player-picker';
+import PlayerPicker from '../new-game-screen/player-picker';
 import { Alert } from 'react-native';
+import { StackActions } from '@react-navigation/routers';
 
 const players = [
     { id: '0', name: 'Karel', color: '', score: 0 },
@@ -39,10 +40,11 @@ class NewGame extends Component {
 
         const gameParams = {
             label: this.state.label,
-            players: this.state.players
+            players: this.state.players,
+            date: this.state.date
         };
 
-        this.props.navigation.navigate('game', gameParams);
+        this.props.navigation.dispatch(StackActions.replace('game', gameParams));
     }
 
     playersSelected(players) {
