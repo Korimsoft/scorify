@@ -16,3 +16,5 @@ const database = new Database({
     ],
     actionsEnabled: true 
 });
+
+export default database;

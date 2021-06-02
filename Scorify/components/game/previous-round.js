@@ -24,25 +24,25 @@ class PreviousRound extends Component {
         );
 
         return (
-                <ListItem.Accordion
-                    content={header}
-                    isExpanded={this.state.expanded}
-                    onPress={
-                        (() => { this.setState({ expanded: !this.state.expanded }) }).bind(this)
+            <ListItem.Accordion
+                content={header}
+                isExpanded={this.state.expanded}
+                onPress={
+                    (() => { this.setState({ expanded: !this.state.expanded }) }).bind(this)
+                }
+            >
+                <ListItem.Content>
+                    {
+                        this.players.map((player, index) => (
+                            <ListItem key={index}>
+                                <ListItem.Title>{index + 1}. {player.name}</ListItem.Title>
+                                <ListItem.Subtitle>{player.score}</ListItem.Subtitle>
+                            </ListItem>
+                        ))
                     }
-                >
-                    <ListItem.Content>
-                        {
-                            this.players.map((player, index) => (
-                                <ListItem key={index}>
-                                    <ListItem.Title>{index + 1}. {player.name}</ListItem.Title>
-                                    <ListItem.Subtitle>{player.score}</ListItem.Subtitle>
-                                </ListItem>
-                            ))
-                        }
-                    </ListItem.Content>
-                </ListItem.Accordion>
-            
+                </ListItem.Content>
+            </ListItem.Accordion>
+
         );
     }
 }

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Alert, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import { Button, Text, Icon } from 'react-native-elements';
 import CurrentRound from './current-round'
 import PreviousRound from './previous-round';

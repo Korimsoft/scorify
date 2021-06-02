@@ -10,7 +10,8 @@ export class Game extends Model {
     }
 
     @field('name') name;
-    @date('timestamp') timestamp;
+    @nochange @date('timestamp') timestamp;
+    @children('rounds') rounds;
 }
 
 export class Round extends Model {
@@ -24,11 +25,10 @@ export class Round extends Model {
             type: 'belongs_to',
             foreign_key: 'game_id'
         }
-        
-        
     }
     
     @field('round_number') number;
+    @children('score_records') scoreRecords;
 }
 
 export class ScoreRecord {
@@ -44,12 +44,20 @@ export class ScoreRecord {
         }
     }
 
-    @field('score') score;
+    @nochange @field('score') score;
 }
 
 export class Player extends Model {
     static table = 'players';
 
+    static associations = {
+        games: {
+            type: 'has_many',
+            foreign_key: 'game_id'
+        }
+    }
+
     @field('name') name;
     @field('wins') wins;
+    @children('games') games;
 }

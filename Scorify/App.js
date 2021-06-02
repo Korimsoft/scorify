@@ -1,7 +1,6 @@
 import 'react-native-gesture-handler';
 
 import React from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import GamesList from './components/games-list/games-list';
 import PlayersList from './components/players-list/players-list';
@@ -10,7 +9,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import NewGame from './components/game/new-game';
 import Game from './components/game/game';
-import EditPlayer from './components/player/edit-player';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -31,7 +29,6 @@ const App = () => {
         <Stack.Screen name="Home" component={ Home } />
         <Stack.Screen name="New Game" component={ NewGame } />
         <Stack.Screen name="Game" component={ Game } />
-        <Stack.Screen name="Edit Player" component={ EditPlayer } />
       </Stack.Navigator>
     </NavigationContainer>
   );

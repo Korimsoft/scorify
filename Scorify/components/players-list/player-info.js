@@ -1,18 +1,45 @@
 import React from 'react';
+import { Component } from 'react';
 import { Text } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { ListItem, Card } from 'react-native-elements';
 
-const PlayerInfo = (props) => {
 
-    return (
-        <ListItem>
-            <ListItem.Content>
+class PlayerInfo extends Component {
+
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            expanded: false,
+        }
+    }
+
+    render() {
+
+        const header = (
+            <>
                 <ListItem.Title>
-                    { props.name }
+                    {this.props.player.name}
                 </ListItem.Title>
-            </ListItem.Content>
-        </ListItem>
-    );
+            </>
+        )
+
+        return (
+            <ListItem.Accordion
+                content={header}
+                isExpanded={this.state.expanded}
+                onPress={(() => { this.setState({ expanded: !this.state.expanded }) }).bind(this)}
+            >
+                <ListItem.Content>
+
+                    <Text>Games: {this.props.player.games}</Text>
+                    <Text>Wins: {this.props.player.wins}</Text>
+
+                </ListItem.Content>
+            </ListItem.Accordion>
+        );
+    }
 }
 
 export default PlayerInfo;
