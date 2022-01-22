@@ -8,7 +8,7 @@ import { Icon } from 'react-native-elements/dist/icons/Icon';
 const NewGameButton = (props) => {
 
     const buttonPress = () => {
-        props.navigation.navigate('New Game');
+        props.navigation.replace('New Game');
     }
 
     return (

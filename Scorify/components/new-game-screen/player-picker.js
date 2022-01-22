@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Fragment } from 'react';
-import { Alert } from 'react-native';
-import { FAB, Icon } from 'react-native-elements';
 import NewGamePlayerList from './new-game-player-list';
 
 class PlayerPicker extends Component {

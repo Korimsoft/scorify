@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Pressable } from 'react-native';
 import { Icon, ListItem } from 'react-native-elements';
 
 class NewGamePlayer extends Component {
@@ -9,6 +8,15 @@ class NewGamePlayer extends Component {
 
     onSelected() {
         this.props.onSelected(this.props.player)
+    }
+
+    showPlayerKey() {
+        if(this.props.type==='available'){
+            return '';
+        } else {
+            return this.props.index + 1 + ' - ';
+            
+        }
     }
 
     addSelectRemoveIcon(){
@@ -35,7 +43,7 @@ class NewGamePlayer extends Component {
         return (
             <ListItem>
                 <ListItem.Title>
-                    {this.props.player.name}
+                   {this.showPlayerKey()}{this.props.player.name}
                 </ListItem.Title>
                 <ListItem.Content>
 

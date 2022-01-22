@@ -1,13 +1,16 @@
 import React from 'react';
 import { Component } from 'react';
 import { Text } from 'react-native';
-import { ListItem, Card } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
 
 
 class PlayerInfo extends Component {
 
 
     constructor(props) {
+        console.debug(`PlayerInfo: ${props}`);
+
+
         super(props);
 
         this.state = {

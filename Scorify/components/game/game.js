@@ -8,23 +8,25 @@ import PreviousRound from './previous-round';
 const round = 1;
 
 
-/*
-Game view
+/** 
+* Game view
 */
 class Game extends Component {
 
     constructor(props) {
         super(props)
-
-        this.label = props.route.params.label;
-        this.date = new Date(props.route.params.timestamp);
-        this.state = { 
-            round: round, 
-            players: props.route.params.players,
+        const params = props.route.params.newGameParams;
+        this.id = params.id;
+        this.label = params.label;
+        this.timestamp = params.timestamp;
+        this.date = new Date(params.timestamp);
+        this.state = {
+            round: round,
+            players: params.players,
             finishedRounds: []
         };
     }
- 
+
     onRoundFinished(roundInfo) {
         const finishedRounds = this.state.finishedRounds;
 
@@ -46,6 +48,18 @@ class Game extends Component {
         // OK => End the game
         // Cancel => Continue
         // Can I end in the middle of the round?
+        // Let's make it possible but only all the finished rounds will count.
+        // Future: Add a posibility to leave the game unfinished - it may be then be reopened.
+        // TODO: Don't pass the game as whole but just its ID
+
+        const game = {
+            id: this.id,
+            label: this.label,
+            timestamp: this.timestamp,
+            ...this.state
+        };
+
+        this.props.navigation.replace("Home", {game: game});
     }
 
     render() {
@@ -56,26 +70,26 @@ class Game extends Component {
         return (
             <Fragment>
                 <Text h4>
-                    {this.label} 
+                    {this.label}
                 </Text>
                 <Text>
-                  Created on: {this.date.toDateString() }
+                    Created on: {this.date.toDateString()}
                 </Text>
-                <CurrentRound 
-                    round={this.state.round} 
-                    players={this.state.players} 
-                    onRoundFinished={ this.onRoundFinished.bind(this) }>
+                <CurrentRound
+                    round={this.state.round}
+                    players={this.state.players}
+                    onRoundFinished={this.onRoundFinished.bind(this)}>
                 </CurrentRound>
                 <FlatList
-                    data={this.state.finishedRounds.sort((first, second) => first.round < second.round) }
+                    data={this.state.finishedRounds.sort((first, second) => first.round < second.round)}
                     renderItem={renderItem}
-                    keyExtractor = {item => item.round}
+                    keyExtractor={item => item.round}
                 >
                 </FlatList>
-                <Button 
+                <Button
                     title='End'
-                    onPress={this.onEndButtonPressed}
-                    icon= {
+                    onPress={this.onEndButtonPressed.bind(this)}
+                    icon={
                         <Icon name='close' />
                     }
                 />

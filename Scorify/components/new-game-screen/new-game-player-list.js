@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { FlatList, View } from 'react-native';
 import { Card } from 'react-native-elements';
 import NewGamePlayer from './new-game-player';
 
@@ -26,6 +25,7 @@ class NewGamePlayerList extends Component {
                     this.props.players.map(
                         (player, index) => (
                             <NewGamePlayer
+                                index={index}
                                 key={index}
                                 type={this.props.type}
                                 onSelected={this.onPlayerSelected.bind(this)}
