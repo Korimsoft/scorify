@@ -17,6 +17,8 @@ export const gamesListSlice = createSlice({
         },
         update: (state, action) => {
             console.debug(`GamesListUpdate: ${JSON.stringify(action)}`);
+            // TODO: Look up the updated game
+            // Update it.
         }
     }
 });

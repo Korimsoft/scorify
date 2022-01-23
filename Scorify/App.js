@@ -15,20 +15,13 @@ import store from './store';
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
-
-const games = [];
-
 const Home = (props) => {
-
-  if (props?.route?.params?.game) {
-    games.push(props.route.params.game)
-  }
 
   return (
     <Tab.Navigator>
       <Tab.Screen name="Games List"
         component={GamesList}
-        initialParams={{ navigation: props.navigation, games: games }}
+        initialParams={{ navigation: props.navigation }}
       />
       <Tab.Screen name="Players List" component={PlayersList} />
     </Tab.Navigator>

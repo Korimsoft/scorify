@@ -20,13 +20,13 @@ const MIN_PLAYERS = 2;
 
 const NewGame = props => {
 
-    const players = useSelector(state => state.playersList);
+    const allPlayers = useSelector(state => state.playersList);
     const [playersInGame, setPlayersInGame] = useState([]);
     const [label, setLabel] = useState('Game');
     const timestamp = new Date().toString();
     
     const startGame = () => {
-
+        
         const gameParams = {
             label: label,
             players: playersInGame,
@@ -73,7 +73,7 @@ const NewGame = props => {
                 />
 
                 <PlayerPicker
-                    players={ players }
+                    players={ allPlayers }
                     onSelected={ playersSelected }
                 />
 

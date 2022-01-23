@@ -17,8 +17,8 @@ class ScoreInput extends Component {
         super(props);
         this.state = {
             name: props.player.name,
-            score: props.player.score,
-            newScore: props.player.score,
+            score: props.player.score || 0,
+            newScore: props.player.score || 0,
             next: props.next?.name
         }
 
@@ -31,8 +31,8 @@ class ScoreInput extends Component {
         if (prevProps.player !== this.props.player) {
             this.setState({
                 name: this.props.player.name,
-                score: this.props.player.score,
-                newScore: this.props.player.score,
+                score: this.props.player.score || 0,
+                newScore: this.props.player.score || 0,
                 next: this.props.next?.name
             });
         }

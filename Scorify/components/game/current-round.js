@@ -1,70 +1,61 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Card } from 'react-native-elements';
 import ScoreInput from './score-input';
+import uuid from 'react-native-uuid';
 
-class CurrentRound extends Component {
+const CurrentRound = (props) => {
 
-    constructor(props) {
-        super(props);
+    const players = props.players.slice();
+        
+    const [id, setId] = useState(uuid.v4());
+    const [currentPlayer, setCurrentPlayer] = useState(players.pop());
+    const [nextPlayers, setNextPlayers] = useState(players);
+    const [finishedPlayers, setFinishedPlayers] = useState([]);
+    const [round, setRound] = useState(1);
 
-        const players = props.players.slice();
-        const firstPlayer = players.pop();
+    const scoreWritten = (score) => {
+        const player = { ...currentPlayer };
+        player.score = score;
 
-        this.state = {
-            round: props.round,
-            nextPlayers: players,
-            currentPlayer: firstPlayer,
-            finishedPlayers: []
-        }
-    }
+        const finished = finishedPlayers.slice();
+        finished.unshift(player);
 
-    scoreWritten(score) {
-
-        const finishedPlayers = this.state.finishedPlayers.slice();
-        const currentPlayer = { ...this.state.currentPlayer };
-        const nextPlayers = this.state.nextPlayers.slice();
-
-        currentPlayer.score = score;
-        finishedPlayers.unshift(currentPlayer);
+        setFinishedPlayers(finished);
 
         if (nextPlayers.length > 0) {
-            const nextPlayer = nextPlayers.pop();
-            this.setState({
-                nextPlayers: nextPlayers.slice(),
-                currentPlayer: nextPlayer,
-                finishedPlayers: finishedPlayers.slice()
-            })
+            const next = nextPlayers;
+            setCurrentPlayer(next.pop())
+            setNextPlayers(next);
         } else {
-            this.props.onRoundFinished({
-                players: finishedPlayers.slice()
+            props.onRoundFinished({
+                id: id,
+                roundNumber: round,
+                players: finished.slice()
             });
 
-            const nextPlayer = finishedPlayers.pop();
-            this.setState({
-                round: this.state.round + 1,
-                currentPlayer: nextPlayer,
-                finishedPlayers: [],
-                nextPlayers: finishedPlayers.slice()
-            });
+            setId(uuid.v4());
+            setRound(round +1);
+            setCurrentPlayer(finished.pop());
+            setNextPlayers(finished);
+            setFinishedPlayers([]);
         }
     }
 
-    render() {
-        return (
-            <Fragment>
-                <Card>
-                    <Card.Title>Round: {this.state.round}</Card.Title>
-                    <Card.Divider/>
-                    <ScoreInput
-                        player={this.state.currentPlayer}
-                        onScoreWritten={this.scoreWritten.bind(this)}
-                        next={this.state.nextPlayers.slice(-1).pop()}
-                    >
-                    </ScoreInput>
-                </Card>
-            </Fragment>
-        );
-    }
+    return (
+        <Fragment>
+            <Card>
+                <Card.Title>Round: { round }</Card.Title>
+                <Card.Divider />
+                <ScoreInput
+                    player={currentPlayer}
+                    onScoreWritten={scoreWritten}
+                    next={nextPlayers.slice(-1).pop()}
+                >
+                </ScoreInput>
+            </Card>
+        </Fragment>
+    );
+
 }
 
 export default CurrentRound;

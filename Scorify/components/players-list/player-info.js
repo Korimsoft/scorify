@@ -8,8 +8,7 @@ class PlayerInfo extends Component {
 
 
     constructor(props) {
-        console.debug(`PlayerInfo: ${props}`);
-
+        console.debug(`PlayerInfo: ${JSON.stringify(props)}`);
 
         super(props);
 

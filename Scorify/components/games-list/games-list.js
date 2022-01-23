@@ -1,29 +1,24 @@
-import React, { Component, Fragment } from 'react'
-import { Alert, FlatList } from 'react-native';
+import React, { Fragment } from 'react'
+import { FlatList } from 'react-native';
+import { useSelector } from 'react-redux';
 import GamesListGame from './games-list-game';
 import NewGameButton from './new-game-button';
 
-class GamesList extends Component {
+const GamesList = (props) => {
 
-    constructor(props) {
-        console.log("GamesList: \n" + JSON.stringify(props));
-        super(props);
-        this.state = {
-            games: this.props.route.params.games || []
-        }
-    }
+    const games = useSelector(state => state.gamesList);
 
-    render() {
-        return (
-            <Fragment>
-                <FlatList data={this.state.games}
-                    renderItem={(item, key) => (<GamesListGame game={item} />)}
-                />
 
-                <NewGameButton navigation={this.props.navigation} />
-            </Fragment>
-        );
-    }
+    return (
+        <Fragment>
+            <FlatList data={ games }
+                renderItem={(item, key) => (<GamesListGame game={item} />)}
+            />
+
+            <NewGameButton navigation={ props.navigation } />
+        </Fragment>
+    );
+
 }
 
 export default GamesList;
