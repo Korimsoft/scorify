@@ -21,7 +21,6 @@ const Home = (props) => {
     <Tab.Navigator>
       <Tab.Screen name="Games List"
         component={GamesList}
-        initialParams={{ navigation: props.navigation }}
       />
       <Tab.Screen name="Players List" component={PlayersList} />
     </Tab.Navigator>
